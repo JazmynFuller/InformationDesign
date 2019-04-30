@@ -1,0 +1,17 @@
+#chart text {
+	fill: #fff;
+	font: 10px Arial;
+	text-anchor: end; /* */
+}
+
+svg {
+	background-color: #000;
+}
+
+.tip {
+	position: absolute;
+	z-index: 10;
+	visibility: hidden; 
+	padding: 10px;
+	background-color: #fff;
+}
