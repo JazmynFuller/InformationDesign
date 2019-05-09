@@ -6,23 +6,23 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/css/mdb.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
-
-	<script
+ 	<script
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
+
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
 	<script src="https://data.cityofnewyork.us/resource/i4gi-tjb9.geojson"></script>
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
     
-    <script type="text/javascript" src="http://iop.io/js/vendor/d3.v3.min.js"></script>
-    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
-    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
-    <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
+    <script type="text/javascript" src="https://iop.io/js/vendor/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+    <script type="text/javascript" src="https://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+    <script type="text/javascript" src="https://iop.io/js/iopctrl.js"></script>
 </head>
-<body>
+<body class="container-fluid">
 	<h1 id="title">Live Traffic Data</h1>
 
 	<div id='map'></div>
@@ -34,7 +34,7 @@
 		<p><span id="datetime"></span></p>
 	</div>
 	<div class="row justify-content-center">
-		<span id="speedometer" class="speedometers"></span>	
+		<span id="speedometer" class="speedometers indicator speedometer-effect"></span>	
 	</div>
 	
 	<!-- Brooklyn Traffic Information -->
@@ -52,6 +52,14 @@
 		<div id="queens" class="col-md-6">
 			<span id="speedometer-bkmin"></span>
 		</div>
+	</div>
+	<div class="row justify-content-around borough-data-1">
+		<div class="col-md-5">
+			<p class="black-speed-labels">Maximum Speed:</p>
+		</div>
+		<div class="col-md-6">
+			<p class="black-speed-labels">Minimum Speed:</p>
+		</div>	
 	</div>
 	<div class="row justify-content-between location-bg black-bg-title">
 		<div class="col-md-5">
@@ -78,6 +86,14 @@
 			<span id="speedometer-qmin"></span>
 		</div>
 	</div>
+	<div class="row justify-content-around">
+		<div class="col-md-5">
+			<p>Maximum Speed:</p>
+		</div>
+		<div class="col-md-6">
+			<p>Minimum Speed:</p>
+		</div>	
+	</div>
 	<div class="row justify-content-between white-bg-captions">
 		<div class="col-md-5">
 			<p id="queens-max"></p>
@@ -102,6 +118,14 @@
 		<div id="manhattan" class="col-md-6">
 			<span id="speedometer-mmin"></span>
 		</div>
+	</div>
+	<div class="row justify-content-around borough-data-1">
+		<div class="col-md-5">
+			<p class="black-speed-labels">Maximum Speed:</p>
+		</div>
+		<div class="col-md-6">
+			<p class="black-speed-labels">Minimum Speed:</p>
+		</div>	
 	</div>
 	<div class="row justify-content-between location-bg black-bg-title">
 		<div class="col-md-5">
@@ -128,6 +152,14 @@
 			<span id="speedometer-bmin"></span>
 		</div>
 	</div>
+	<div class="row justify-content-around">
+		<div class="col-md-5">
+			<p>Maximum Speed:</p>
+		</div>
+		<div class="col-md-6">
+			<p>Minimum Speed:</p>
+		</div>	
+	</div>
 	<div class="row justify-content-between white-bg-captions">
 		<div class="col-md-5">
 			<p id="bronx-max"></p>
@@ -153,6 +185,14 @@
 			<span id="speedometer-smin"></span>
 		</div>
 	</div>
+	<div class="row justify-content-around borough-data-1">
+		<div class="col-md-5">
+			<p class="black-speed-labels">Maximum Speed:</p>
+		</div>
+		<div class="col-md-6">
+			<p class="black-speed-labels">Minimum Speed:</p>
+		</div>	
+	</div>
 	<div class="row justify-content-between location-bg black-bg-title">
 		<div class="col-md-5">
 			<p id="staten-max"></p>
@@ -172,6 +212,11 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 <!-- Bootstrap core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/js/mdb.min.js"></script>
 </body>

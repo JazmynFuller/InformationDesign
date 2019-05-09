@@ -1,7 +1,6 @@
-console.log("Test")
-
 $(document).ready(function() {
 	var dt = new Date();
+	var map;
 	document.getElementById("datetime").innerHTML = dt;
 
 	var speed = 0;
@@ -14,7 +13,7 @@ $(document).ready(function() {
     }
 	}).done(function(data) {
   		// alert("Retrieved " + data.length + " records from the dataset!");
-  		// console.log(data[0]);
+  		console.log(data[0]);
   		// console.log(data);
 	});
 
@@ -217,12 +216,11 @@ $(document).ready(function() {
 	});
 
 
-
 	var queensCollege = [-73.816037,40.736340];
+	// var currentLocation = success();
+	// console.log(currentLocation);
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoiamF6bXluZnVsbGVyIiwiYSI6ImNqdmU4YXd2NTAzdHo0NHFwMXE3dm05dmEifQ.FPP-0NTcmT19M-IuGSlFSQ';
-        var queensCollege = [-73.816037,40.736340]
-        // manipulate your map
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v9',
@@ -231,20 +229,22 @@ $(document).ready(function() {
         });
 
 
-map.on('load', function(){
 
-    map.addSource('trafficSource', {
-        type: 'vector',
-        url: 'mapbox://mapbox.mapbox-traffic-v1'
-    });
+		Map
+		map.on('load', function(){
 
-    
-    var buttonEl = document.getElementById('trafficButton');
-    buttonEl.addEventListener('click', function(e){
-        addTraffic();
-    });
+		    map.addSource('trafficSource', {
+		        type: 'vector',
+		        url: 'mapbox://mapbox.mapbox-traffic-v1'
+		    });
 
-});
+		    
+		    var buttonEl = document.getElementById('trafficButton');
+		    buttonEl.addEventListener('click', function(e){
+		        addTraffic();
+		    });
+
+		});
 
 function addTraffic(){
     var firstPOILabel = map.getStyle().layers.filter(function(obj){ 
@@ -293,7 +293,8 @@ function addTraffic(){
 	                .call(gauge);
 
 	        segDisplay.value(avg); // average speed in NYC
-	        gauge.value(avg); 
+	        gauge.value(avg);
+
 	}
 
 
@@ -669,9 +670,15 @@ function addTraffic(){
 	}
 
 
+	$(".speedometer-effect").hover(function() {
+         	$(this).effect("shake",{ times:3 }, 500);
+         });
 
 	
 
 });
+
+
+
 
 
