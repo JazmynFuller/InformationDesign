@@ -1,21 +1,78 @@
-$(document).ready(function() {
-	var dt = new Date();
+var dt = new Date();
 	var map;
 	document.getElementById("datetime").innerHTML = dt;
 
+	function hideAfterFive() {
+		$('#hideMe').show(); 
+		setTimeout(function() { 
+       		$('#hideMe').fadeOut(); 
+   		}, 13000);
+	}
+
+hideAfterFive(); // GIVE TIME FOR DATA TO LOAD
+
+$(document).ready(function() {
+
+	function showAfterFive() {
+		setTimeout(function() {
+			// $('.main-content').fadeOut(); 
+   			document.querySelector('.main-content').style.display = 'block';
+
+		}, 13000);
+	}
+	
+
 	var speed = 0;
-	var x = $.ajax({
-    url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
+
+	$.ajax({
+    url: "https://data.cityofnewyork.us/resource/qiz3-axqb.json?$where=date between '2019-01-01T12:00:00' and '2019-05-30T14:00:00'",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
-  		// alert("Retrieved " + data.length + " records from the dataset!");
-  		console.log(data[0]);
-  		// console.log(data);
+	  var aData = [0,0,0,0,0];
+	  // alert("Retrieved " + data.length + " records from the dataset!");
+	  var totalAccidents = data.length;
+	  let bkAccidents = 0;
+	  let bXAccidents = 0;
+	  let qAccidents = 0;
+	  let mAccidents = 0;
+	  let sAccidents = 0;
+	  totalAccidentsThisYear(totalAccidents);
+	  console.log(data[100]["borough"]);
+	  
+
+	  for(var i = 0; i<data.length; i++) {
+	  	if(data[i]["borough"]=='BROOKLYN') {
+	  		bkAccidents+=1;
+	  	}
+	  	if(data[i]["borough"]=='QUEENS') {
+	  		qAccidents+=1;
+	  	}
+	  	if(data[i]["borough"]=='MANHATTAN') {
+	  		mAccidents+=1;
+	  	}
+	  	if(data[i]["borough"]=='BRONX') {
+	  		bXAccidents+=1;
+	  	}
+	  	if(data[i]["borough"]=='STATEN ISLAND') {
+	  		sAccidents+=1;
+	  	} else continue;
+	  }
+	  console.log("Accidents in Brooklyn "+Number(bkAccidents));
+	  console.log("Accidents in Queens "+Number(qAccidents));
+	  console.log("Accidents in Manhattan "+Number(mAccidents));
+	  console.log("Accidents in Staten Island "+Number(sAccidents));
+	  console.log("Accidents in Bronx "+Number(bXAccidents));
+
+	  // accidentPerBorough(Number(bkAccidents),Number(qAccidents),Number(mAccidents),Number(bXAccidents),Number(sAccidents));
+
 	});
+	
+
+
 
 	var j = $.ajax({
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
@@ -216,6 +273,46 @@ $(document).ready(function() {
 	});
 
 
+	$.ajax({
+	    url: "https://data.cityofnewyork.us/resource/qiz3-axqb.json",
+	    type: "GET",
+	    data: {
+	      "$limit" : 5000,
+	      "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
+	    }
+		}).done(function(data) {
+		   var personsInjured = 0, personsKilled = 0, cyclistsInjured = 0, cyclistsKilled =0, pedsInjured = 0, pedsKilled =0;
+		  // alert("Retrieved " + data.length + " records from the dataset!");
+		  console.log("accident count "+data[5]["number_of_persons_injured"]);
+		  for(var i=0; i<data.length; i++) {
+		  	if(Number(data[i]["number_of_persons_injured"])>0) {
+		  		personsInjured+=Number(data[i]["number_of_persons_injured"]);
+		  	}
+		  	if(Number(data[i]["number_of_persons_killed"])>0) {
+		  		personsKilled+=Number(data[i]["number_of_persons_killed"]);
+		  	}
+		  	if(Number(data[i]["number_of_pedestrians_injured"])>0) {
+		  		pedsInjured+=Number(data[i]["number_of_pedestrians_injured"]);
+		  	}
+		  	if(Number(data[i]["number_of_pedestrians_killed"])>0) {
+		  		pedsKilled+=Number(data[i]["number_of_pedestrians_killed"]);
+		  	}
+		  	if(Number(data[i]["number_of_number_of_cyclist_injured"])>0) {
+		  		cyclistsInjured+=Number(data[i]["number_of_number_of_cyclist_injured"]);
+		  	}
+		  	if(Number(data[i]["number_of_number_of_cyclist_killed"])>0) {
+		  		cyclistsKilled+=Number(data[i]["number_of_number_of_cyclist_killed"]);
+		  	} else continue;
+		  }
+		  // console.log("Amount of people injured "+personsInjured);
+		  people(personsInjured,personsKilled);
+		  cyclists(cyclistsInjured,cyclistsKilled);
+		  document.getElementById("peds-injured").innerHTML = pedsInjured;
+  		document.getElementById("peds-killed").innerHTML = pedsKilled;
+		});
+
+	showAfterFive();
+
 	var queensCollege = [-73.816037,40.736340];
 	// var currentLocation = success();
 	// console.log(currentLocation);
@@ -225,7 +322,7 @@ $(document).ready(function() {
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v9',
             center: queensCollege,
-            zoom: 15
+            zoom: 10
         });
 
 
@@ -674,7 +771,21 @@ function addTraffic(){
          	$(this).effect("shake",{ times:3 }, 500);
          });
 
-	
+  	// Motor Vehicle Accident Data
+  	function totalAccidentsThisYear(total){
+  		document.getElementById("total-num-accidents").innerHTML = total;
+  	}
+
+  	// Type Injured/Killed
+  	function people(pInjured,pKilled) {
+  		document.getElementById("people-injured").innerHTML = pInjured;
+  		document.getElementById("people-killed").innerHTML = pKilled;
+  	}
+  	function cyclists(cInjured,cKilled) {
+  		document.getElementById("cyclists-injured").innerHTML = cInjured;
+		document.getElementById("cyclists-killed").innerHTML = cKilled;
+  	}
+
 
 });
 
