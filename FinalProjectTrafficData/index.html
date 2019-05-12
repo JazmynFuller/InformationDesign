@@ -4,6 +4,7 @@
 	<title>NYC Traffic Statistics</title>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.0/css/mdb.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="styles.css">
  	<script
@@ -11,16 +12,22 @@
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
 
-	<script src="https://d3js.org/d3.v3.js"></script>
-	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
+	<!-- <script src="https://d3js.org/d3.v3.js"></script> -->
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.53.1/mapbox-gl-dev.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
 	<script src="https://data.cityofnewyork.us/resource/i4gi-tjb9.geojson"></script>
-	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
-    
-     <script type="text/javascript" src="http://iop.io/js/vendor/d3.v3.min.js"></script>
+	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
+    <script type="text/javascript" src="d3.v3.min.js"></script>
+    <script type="text/javascript" src="pointerevents.js"></script>
+    <script type="text/javascript" src="pointergestures.js"></script>
+    <script type="text/javascript" src="iopctrl.js"></script>
+
+    <!--  <script type="text/javascript" src="http://iop.io/js/vendor/d3.v3.min.js"></script>
     <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
     <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
-    <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script> -->
 </head>
 <body class="container-fluid">
 <div class="main-content fade-in" id="m-c">
@@ -54,10 +61,10 @@
 	</div>
 	<div class="row justify-content-around borough-data-1">
 		<div class="col-md-5">
-			<p class="black-speed-labels">Maximum Speed:</p>
+			<p class="black-speed-labels">Fastest Route:</p>
 		</div>
 		<div class="col-md-6">
-			<p class="black-speed-labels">Minimum Speed:</p>
+			<p class="black-speed-labels">Slowest Route:</p>
 		</div>	
 	</div>
 	<div class="row justify-content-between location-bg black-bg-title">
@@ -87,10 +94,10 @@
 	</div>
 	<div class="row justify-content-around">
 		<div class="col-md-5">
-			<p>Maximum Speed:</p>
+			<p>Fastest Route:</p>
 		</div>
 		<div class="col-md-6">
-			<p>Minimum Speed:</p>
+			<p>Slowest Route:</p>
 		</div>	
 	</div>
 	<div class="row justify-content-between white-bg-captions">
@@ -120,10 +127,10 @@
 	</div>
 	<div class="row justify-content-around borough-data-1">
 		<div class="col-md-5">
-			<p class="black-speed-labels">Maximum Speed:</p>
+			<p class="black-speed-labels">Fastest Route:</p>
 		</div>
 		<div class="col-md-6">
-			<p class="black-speed-labels">Minimum Speed:</p>
+			<p class="black-speed-labels">Slowest Route:</p>
 		</div>	
 	</div>
 	<div class="row justify-content-between location-bg black-bg-title">
@@ -153,10 +160,10 @@
 	</div>
 	<div class="row justify-content-around">
 		<div class="col-md-5">
-			<p>Maximum Speed:</p>
+			<p>Fastest Route:</p>
 		</div>
 		<div class="col-md-6">
-			<p>Minimum Speed:</p>
+			<p>Slowest Route:</p>
 		</div>	
 	</div>
 	<div class="row justify-content-between white-bg-captions">
@@ -186,10 +193,10 @@
 	</div>
 	<div class="row justify-content-around borough-data-1">
 		<div class="col-md-5">
-			<p class="black-speed-labels">Maximum Speed:</p>
+			<p class="black-speed-labels">Fastest Route:</p>
 		</div>
 		<div class="col-md-6">
-			<p class="black-speed-labels">Minimum Speed:</p>
+			<p class="black-speed-labels">Slowest Route:</p>
 		</div>	
 	</div>
 	<div class="row justify-content-between location-bg black-bg-title">
@@ -221,62 +228,55 @@
 		<iframe id="dv-c88b521557543892123" src="https://s3.amazonaws.com/datavisual/embeds/90c4c14209.html" style="height:500px; max-width:800px; width:100%; border: 0px; background-color: #efefef; overflow: hidden; visibility: hidden;" scrolling="no" data-height="500" data-width="800"></iframe><script src="https://s3.amazonaws.com/datavisual/js/responsive.js#!dv-c88b521557543892123,90c4c14209.html"></script><script src="https://s3.amazonaws.com/datavisual/js/lazyLoad.js#!dv-c88b521557543892123,90c4c14209.html"></script>
 	</div>
 
-	<div class="row justify-content-center">
-	<h3>So far this year, there has been:</h3>
+	<div class="row justify-content-center non-chart-stats">
+	<h3>So far this year, there have been:</h3>
 </div>
 
 <div class="row justify-content-center car-bike-person">
 	<div class="col-md-4">
 		<img src="https://media1.giphy.com/media/5btJ3NKUOsARoLpfvG/source.gif" width="200px" height="75px" style="margin-top: 32%;">
 		<div class="row justify-content-center people-affected" id="people1">
-			<h6><span id="people-injured"></span> people injured</h6>
+			<h4><span id="people-injured"></span> people injured</h4>
 		</div>
 		<div class="row justify-content-center people-affected">
-			<h6><span id="people-killed"></span> people killed</h6>
+			<h4><span id="people-killed"></span> people killed</h4>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<img src="https://media3.giphy.com/media/3o7aD6jVYYeac6NSlW/source.gif" width="100px" height="135px" style="margin-top: 20%; margin-left: 27%;">
 		<div class="row justify-content-center cyclists-affected" id="people2">
-			<h6><span id="cyclists-injured"></span> cyclists injured</h6>
+			<h4><span id="cyclists-injured"></span> cyclists injured</h4>
 		</div>
 		<div class="row justify-content-center cyclists-affected">
-			<h6><span id="cyclists-killed"></span> cyclists killed</h6>
+			<h4><span id="cyclists-killed"></span> cyclists killed</h4>
 		</div>
 	</div>
 	<div class="col-md-4">
 		<img src="https://projects.seattletimes.com/2015/pacificnw/sidewalk-rage/assets/pedRage.gif" width="45px" height="75px" style="margin-top: 30%; margin-left: 40%;" >
 		<div class="row justify-content-center peds-affected" id="people3">
-			<h6><span id="peds-injured"></span> pedestrians injured</h6>
+			<h4><span id="peds-injured"></span> pedestrians injured</h4>
 		</div>
 		<div class="row justify-content-center peds-affected">
-			<h6><span id="peds-killed"></span> pedestrians killed</h6>
+			<h4><span id="peds-killed"></span> pedestrians killed</h4>
 		</div>
 	</div>
 </div>
 
-<div class="row justify-content-center">
-	<h2 style="font-weight: 500; ">Click for Real Time Traffic</h2>
-</div>
+	<div class="row justify-content-center">
+		<h2 style="font-weight: 500; padding-top: 3%; padding-bottom: 1%; ">Click for Real Time Traffic</h2>
+	</div>
 
-<div id='map'></div>
-<div class="row justify-content-center addTrafficButton">
-	<button id='trafficButton' type="button" class="btn btn-warning">Add Traffic</button>
-</div>
-	
- <!-- <div id='trafficButton'>Add traffic</div> -->
+	<div class="row justify-content-center" id='map'></div>
 
-<div class="row justify-content-center comments">
-		<h3>Presenation by Jazmyn Fuller</h3>
-</div>
+	<div class="row justify-content-center addTrafficButton">
+		<button id='trafficButton' type="button" class="btn btn-warning">Add Traffic</button>
+	</div>
 
+	<div class="row justify-content-center comments">
+			<a href="https://jazmynfuller.herokuapp.com/">Presenation by: Jazmyn Fuller</a>
+	</div>
 
 </div>
-
-
-	
-
-
 
 <div class="intro-layer row justify-content-center fade-out-bck" id="hideMe">
 	<h2 id="intro-ti">NYC Traffic Statistics</h2>
@@ -301,7 +301,7 @@
       <line id="XMLID_16_" class="st3" x1="21.5" y1="1475.1" x2="7174.5" y2="1475.1" />
       <g id="XMLID_14_">
         <g id="XMLID_43_">
-          <line id="XMLID_46_" class="st4" x1="101.3" y1="1402.1" x2="116.3" y2="1402.1" />
+          <line id="XMLID_46_" class="st4" x1="101.3" y1="1402.1" x2="116.3" y2="1402.1"/>
           <line id="XMLID_45_" class="st5" x1="205.5" y1="1402.1" x2="7065.5" y2="1402.1" />
           <line id="XMLID_44_" class="st4" x1="7110.1" y1="1402.1" x2="7125.1" y2="1402.1" />
         </g>
@@ -314,7 +314,7 @@
       <rect id="XMLID_25_" x="2638.1" y="338.5" class="st1" width="305.2" height="993.4" />
       <rect id="XMLID_29_" x="3634.1" y="753.2" class="st2" width="305.2" height="579.3" />
       <rect id="XMLID_28_" x="3987.9" y="458.4" class="st2" width="305.2" height="874.1" />
-      <rect id="XMLID_27_" x="4651" y="579" class="st2" width="350.3" height="753" />
+      <rect id="XMLID_27_" x="4651"   y="579" class="st2" width="350.3" height="753" />
       <rect id="XMLID_30_" x="4887.2" y="677.7" class="st6" width="228.1" height="653.3" />
       <rect id="XMLID_31_" x="5102.1" y="338.5" class="st1" width="305.2" height="993.4" />
       <rect id="XMLID_35_" x="6489.7" y="456.4" class="st2" width="305.2" height="874.1" />

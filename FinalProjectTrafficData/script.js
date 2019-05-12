@@ -1,5 +1,4 @@
 var dt = new Date();
-	var map;
 	document.getElementById("datetime").innerHTML = dt;
 
 	function hideAfterFive() {
@@ -13,10 +12,12 @@ hideAfterFive(); // GIVE TIME FOR DATA TO LOAD
 
 $(document).ready(function() {
 
-	function showAfterFive() {
+	function showAfterFive(map) {
 		setTimeout(function() {
 			// $('.main-content').fadeOut(); 
    			document.querySelector('.main-content').style.display = 'block';
+   			$('#map').show();
+   			map.resize();
 
 		}, 13000);
 	}
@@ -78,7 +79,7 @@ $(document).ready(function() {
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
@@ -95,7 +96,7 @@ $(document).ready(function() {
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
@@ -132,7 +133,7 @@ $(document).ready(function() {
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
@@ -168,7 +169,7 @@ $(document).ready(function() {
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
@@ -205,7 +206,7 @@ $(document).ready(function() {
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
@@ -241,7 +242,7 @@ $(document).ready(function() {
     url: "https://data.cityofnewyork.us/resource/i4gi-tjb9.json",
     type: "GET",
     data: {
-      "$limit" : 5000,
+      "$limit" : 80000,
       "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
     }
 	}).done(function(data) {
@@ -277,7 +278,7 @@ $(document).ready(function() {
 	    url: "https://data.cityofnewyork.us/resource/qiz3-axqb.json",
 	    type: "GET",
 	    data: {
-	      "$limit" : 5000,
+	      "$limit" : 80000,
 	      "$$app_token" : "OconBNonoCLdDNrOPYIIBt5UA"
 	    }
 		}).done(function(data) {
@@ -310,26 +311,29 @@ $(document).ready(function() {
 		  document.getElementById("peds-injured").innerHTML = pedsInjured;
   		document.getElementById("peds-killed").innerHTML = pedsKilled;
 		});
-
-	showAfterFive();
+	
+	
+	
 
 	var queensCollege = [-73.816037,40.736340];
-	// var currentLocation = success();
-	// console.log(currentLocation);
 
-	mapboxgl.accessToken = 'pk.eyJ1IjoiamF6bXluZnVsbGVyIiwiYSI6ImNqdmU4YXd2NTAzdHo0NHFwMXE3dm05dmEifQ.FPP-0NTcmT19M-IuGSlFSQ';
+	mapboxgl.accessToken = 'pk.eyJ1IjoiamF6bXluZnVsbGVyIiwiYSI6ImNqdWE5OGRrZjAwYWc0ZW1teGkzNzY2N28ifQ.kqkrJ_pG1wZALwXlxOMdIQ';
         var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v9',
             center: queensCollege,
-            zoom: 10
+            zoom: 15
         });
+        showAfterFive(map);
+
+        
 
 
 
-		Map
+		// Map
 		map.on('load', function(){
 
+			map.resize();
 		    map.addSource('trafficSource', {
 		        type: 'vector',
 		        url: 'mapbox://mapbox.mapbox-traffic-v1'
@@ -342,6 +346,7 @@ $(document).ready(function() {
 		    });
 
 		});
+
 
 function addTraffic(){
     var firstPOILabel = map.getStyle().layers.filter(function(obj){ 
@@ -376,7 +381,7 @@ function addTraffic(){
 
 	        var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -415,7 +420,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -452,7 +457,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -490,7 +495,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -527,7 +532,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -564,7 +569,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -601,7 +606,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -638,7 +643,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -675,7 +680,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -712,7 +717,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -749,7 +754,7 @@ function addTraffic(){
 	              .range([-3*Math.PI/4, 3*Math.PI/4]));
 	      	var segDisplay = iopctrl.segdisplay()
 	                .width(80)
-	                .digitCount(6)
+	                .digitCount(3)
 	                .negative(false)
 	                .decimals(0);
 
@@ -785,11 +790,8 @@ function addTraffic(){
   		document.getElementById("cyclists-injured").innerHTML = cInjured;
 		document.getElementById("cyclists-killed").innerHTML = cKilled;
   	}
-
+  	
 
 });
-
-
-
 
 
